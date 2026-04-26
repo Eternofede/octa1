@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Octa | Coaching & Transformación</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap');
+
+    :root {
+      --dust-grey: #dad7cd;
+      --dry-sage: #a3b18a;
+      --fern: #588157;
+      --hunter-green: #3a5a40;
+      --pine-teal: #344e41;
+
+      --bg-main: var(--dust-grey);
+      --bg-soft: #f3f1e9;
+      --accent: var(--fern);
+      --accent-dark: var(--hunter-green);
+      --primary: var(--pine-teal);
+      --primary-2: #24382f;
+      --muted-accent: var(--dry-sage);
+      --white: #ffffff;
+      --text: #1f2d26;
+      --muted: #5d6a60;
+      --shadow: 0 24px 70px rgba(31, 45, 38, .18);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg-main);
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      padding: 22px 0;
+      transition: .28s ease;
+      color: var(--bg-soft);
+    }
+
+    .navbar.scrolled {
+      padding: 13px 0;
+      background: rgba(52, 78, 65, .88);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.15);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      letter-spacing: -1px;
+      font-size: 1.55rem;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .logo span { color: var(--dry-sage); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      position: relative;
+      opacity: .92;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -9px;
+      width: 0;
+      height: 2px;
+      background: var(--dry-sage);
+      transition: .25s ease;
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-social {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .social-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      transition: .25s ease;
+      font-weight: 800;
+      font-size: .82rem;
+    }
+
+    .social-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,.14); }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: rgba(255,255,255,.15);
+      color: var(--bg-soft);
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      font-size: 1.35rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 94vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      color: var(--bg-soft);
+      background:
+        linear-gradient(rgba(36, 56, 47, .58), rgba(36, 56, 47, .58)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80') center/cover;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: -95px;
+      height: 190px;
+      background: var(--bg-main);
+      transform: rotate(-4deg);
+      z-index: -1;
+    }
+
+    .hero-content {
+      text-align: center;
+      padding-top: 80px;
+      width: min(950px, calc(100% - 36px));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 9px 15px;
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      font-weight: 700;
+      font-size: .82rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Nunito', sans-serif;
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 8vw, 7.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      text-shadow: 0 14px 35px rgba(0,0,0,.18);
+    }
+
+    .highlight {
+      display: inline-block;
+      position: relative;
+      padding: 0 .13em;
+      z-index: 1;
+    }
+
+    .highlight::before {
+      content: '';
+      position: absolute;
+      left: -2%;
+      right: -2%;
+      bottom: .06em;
+      height: .35em;
+      border-radius: 999px;
+      background: var(--fern);
+      z-index: -1;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 22px auto 0;
+      font-size: clamp(1.05rem, 2.2vw, 1.55rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--dust-grey);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .25s ease;
+      font-size: .95rem;
+    }
+
+    .btn-primary { background: var(--fern); color: var(--white); box-shadow: 0 15px 35px rgba(88, 129, 87, .32); }
+    .btn-primary:hover { transform: translateY(-3px); background: var(--hunter-green); }
+    .btn-secondary { background: rgba(255,255,255,.14); color: var(--bg-soft); border: 1px solid rgba(255,255,255,.32); }
+    .btn-secondary:hover { transform: translateY(-3px); background: rgba(255,255,255,.22); }
+    .btn-dark { background: var(--pine-teal); color: var(--white); }
+    .btn-dark:hover { transform: translateY(-3px); background: var(--primary-2); }
+
+    section { padding: 105px 0; position: relative; }
+
+    .section-kicker {
+      color: var(--hunter-green);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 900;
+      font-size: .78rem;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(2.35rem, 5vw, 4.7rem);
+      color: var(--pine-teal);
+      margin-bottom: 22px;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      min-height: 560px;
+      background:
+        linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.12)),
+        url('https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .sticker {
+      position: absolute;
+      right: -22px;
+      top: -28px;
+      width: 142px;
+      height: 142px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: var(--fern);
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      transform: rotate(9deg);
+      box-shadow: 0 18px 45px rgba(58, 90, 64, .25);
+    }
+
+    .intro-copy {
+      background: rgba(255,255,255,.38);
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: var(--radius);
+      padding: clamp(28px, 5vw, 52px);
+      box-shadow: 0 20px 60px rgba(31,45,49,.08);
+    }
+
+    .intro-copy strong { color: var(--pine-teal); }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .value {
+      background: var(--bg-soft);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(52, 78, 65, .10);
+    }
+
+    .value b { color: var(--pine-teal); display: block; margin-bottom: 8px; }
+    .value span { color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+    .story {
+      background: var(--pine-teal);
+      color: var(--dust-grey);
+      overflow: hidden;
+    }
+
+    .story::before, .story::after {
+      content: '';
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(163, 177, 138, .22);
+      filter: blur(3px);
+    }
+
+    .story::before { left: -120px; top: 80px; }
+    .story::after { right: -140px; bottom: -80px; background: rgba(88, 129, 87, .24); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .story .section-title { color: var(--bg-soft); }
+    .story .section-kicker { color: var(--dry-sage); }
+    .story .lead { color: rgba(218,215,205,.78); }
+
+    .quote-card {
+      border-radius: var(--radius);
+      padding: 34px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(16px);
+      align-self: start;
+      position: sticky;
+      top: 100px;
+    }
+
+    .quote-card p {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.05rem;
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .quote-card small {
+      display: block;
+      margin-top: 18px;
+      color: rgba(218,215,205,.72);
+      line-height: 1.6;
+    }
+
+    .story-blocks {
+      display: grid;
+      gap: 18px;
+    }
+
+    .story-block {
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.13);
+    }
+
+    .story-block h3 {
+      font-size: 1.45rem;
+      margin-bottom: 12px;
+      color: var(--dry-sage);
+    }
+
+    .story-block p {
+      color: rgba(218,215,205,.78);
+      line-height: 1.75;
+    }
+
+    .services {
+      background: var(--bg-soft);
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 46px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 18px 55px rgba(31,45,38,.09);
+      border: 1px solid rgba(52,78,65,.08);
+      transition: .25s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 430px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 7px;
+      background: var(--fern);
+    }
+
+    .service-card.featured {
+      background: var(--pine-teal);
+      color: var(--dust-grey);
+      transform: translateY(-14px);
+    }
+
+    .service-card.featured .muted,
+    .service-card.featured li { color: rgba(218,215,205,.75); }
+
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+    .service-card.featured:hover { transform: translateY(-20px); }
+
+    .tag {
+      width: fit-content;
+      padding: 7px 11px;
+      background: rgba(88,129,87,.14);
+      color: var(--hunter-green);
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 20px;
+    }
+
+    .featured .tag { background: rgba(255,255,255,.12); color: var(--dry-sage); }
+
+    .service-card h3 { font-size: 2rem; color: inherit; margin-bottom: 12px; }
+    .muted { color: var(--muted); line-height: 1.65; }
+
+    .service-list {
+      margin: 24px 0 28px;
+      display: grid;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .service-list li {
+      color: var(--muted);
+      line-height: 1.45;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .service-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--fern);
+      font-weight: 900;
+    }
+
+    .service-card .btn { margin-top: auto; width: 100%; }
+
+    .contact {
+      background:
+        linear-gradient(rgba(218,215,205,.88), rgba(218,215,205,.88)),
+        url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+    }
+
+    .contact-box {
+      border-radius: calc(var(--radius) + 10px);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 54px);
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 42px;
+      align-items: start;
+      backdrop-filter: blur(14px);
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px;
+      background: var(--bg-soft);
+      border-radius: 20px;
+    }
+
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--pine-teal);
+      color: var(--bg-soft);
+      flex: 0 0 auto;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid rgba(52,78,65,.13);
+      background: var(--bg-soft);
+      border-radius: 18px;
+      padding: 16px 17px;
+      font: inherit;
+      outline: none;
+      color: var(--text);
+      transition: .2s ease;
+    }
+
+    textarea { resize: vertical; min-height: 135px; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--fern);
+      box-shadow: 0 0 0 4px rgba(88,129,87,.15);
+      background: var(--white);
+    }
+
+    .faq {
+      background: var(--bg-main);
+    }
+
+    .faq-wrap {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(52,78,65,.18);
+      background: rgba(255,255,255,.28);
+      margin-bottom: 12px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 24px;
+      font: inherit;
+      font-weight: 850;
+      color: var(--pine-teal);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .faq-question span:last-child {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--fern);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      transition: .25s ease;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .28s ease;
+    }
+
+    .faq-answer p {
+      padding: 0 24px 24px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-question span:last-child { transform: rotate(45deg); background: var(--pine-teal); }
+    .faq-item.active .faq-answer { max-height: 260px; }
+
+    footer {
+      background: var(--primary-2);
+      color: rgba(218,215,205,.76);
+      padding: 34px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-inner .logo { color: var(--bg-soft); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links, .nav-social { display: none; }
+      .nav-links.open {
+        display: grid;
+        position: absolute;
+        top: 72px;
+        left: 20px;
+        right: 20px;
+        background: rgba(52,78,65,.95);
+        padding: 22px;
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .intro-grid, .story-grid, .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card { min-height: 470px; }
+      .values, .cards { grid-template-columns: 1fr; }
+      .service-card.featured { transform: none; }
+      .service-card.featured:hover { transform: translateY(-8px); }
+      .quote-card { position: relative; top: auto; }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      section { padding: 76px 0; }
+      .hero { min-height: 88vh; }
+      .hero-content { padding-top: 60px; }
+      h1 { font-size: clamp(3rem, 17vw, 4.5rem); }
+      .hero p { font-size: 1.02rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .photo-card { min-height: 390px; }
+      .intro-copy { padding: 24px; }
+      .service-card { min-height: auto; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#inicio" class="logo">Octa<span>.</span></a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#historia">Experiencia</a>
+        <a href="#servicios">Planes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#faq">Preguntas frecuentes</a>
+      </nav>
+
+      <div class="nav-social" aria-label="Redes sociales">
+        <a class="social-btn" href="#contacto" aria-label="WhatsApp">W</a>
+        <a class="social-btn" href="#contacto" aria-label="Instagram">IG</a>
+        <a class="social-btn" href="#contacto" aria-label="YouTube">YT</a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content reveal">
+        <div class="eyebrow">Coaching · cuerpo · propósito</div>
+        <h1>Volvé a habitar <span class="highlight">tu energía</span></h1>
+        <p>Un espacio para ordenar tu mundo interno, reconectar con tu cuerpo y transformar tu manera de vivir, decidir y vincularte.</p>
+        <div class="hero-actions">
+          <a href="#servicios" class="btn btn-primary">Ver planes de coaching</a>
+          <a href="#sobre-mi" class="btn btn-secondary">Conocer a Octa</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre-mi">
+      <div class="container intro-grid">
+        <div class="photo-card reveal" aria-label="Imagen de Octa meditando">
+          <div class="sticker">Respirá<br>volvé<br>a vos</div>
+        </div>
+
+        <div class="intro-copy reveal">
+          <div class="section-kicker">Sobre mí</div>
+          <h2 class="section-title">Soy Octa, y acompaño procesos reales de transformación.</h2>
+          <p class="lead">
+            Mi trabajo nace de una búsqueda personal: entender por qué a veces vivimos en automático, desconectados del cuerpo, de las emociones y de aquello que profundamente queremos construir.
+            <br><br>
+            Con el tiempo descubrí que el bienestar no aparece cuando uno controla todo, sino cuando aprende a escucharse con honestidad. Desde ahí acompaño a personas que quieren bajar el ruido, recuperar claridad y crear una vida más alineada con su energía, sus vínculos y su propósito.
+            <br><br>
+            No vengo a venderte una versión perfecta de vos. Te propongo algo más incómodo, más humano y bastante más poderoso: <strong>volver a encontrarte con lo que ya estaba ahí, esperando lugar.</strong>
+          </p>
+
+          <div class="values">
+            <div class="value">
+              <b>Presencia</b>
+              <span>Aprender a estar en el cuerpo, no solo en la cabeza haciendo reuniones que nadie pidió.</span>
+            </div>
+            <div class="value">
+              <b>Claridad</b>
+              <span>Ordenar emociones, decisiones y prioridades sin convertir la vida en un Excel espiritual.</span>
+            </div>
+            <div class="value">
+              <b>Acción</b>
+              <span>Transformar lo que descubrís en hábitos, límites y pasos concretos.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="historia">
+      <div class="container story-grid">
+        <aside class="quote-card reveal">
+          <p>“No se trata de cambiar quién sos. Se trata de dejar de abandonarte para encajar.”</p>
+          <small>Una experiencia de coaching pensada para personas que quieren reconectar, crecer y sostener cambios reales.</small>
+        </aside>
+
+        <div class="story-blocks reveal">
+          <div>
+            <div class="section-kicker">Experiencia personal</div>
+            <h2 class="section-title">Un camino vivido antes de ser acompañado.</h2>
+          </div>
+
+          <div class="story-block">
+            <h3>De la desconexión al registro</h3>
+            <p>Octa desarrolló su camino a partir de prácticas de introspección, movimiento, respiración y acompañamiento emocional. Su enfoque integra cuerpo, mente y propósito para que cada proceso no quede solo en una charla linda, sino en una transformación que se pueda sentir en la vida diaria.</p>
+          </div>
+
+          <div class="story-block">
+            <h3>Una mirada integral</h3>
+            <p>El trabajo no apunta a “arreglar” personas, porque nadie es un lavarropas con garantía vencida. La propuesta es mirar con profundidad: hábitos, vínculos, bloqueos, decisiones, energía vital y narrativa personal. Desde ahí se construye un proceso posible, honesto y sostenible.</p>
+          </div>
+
+          <div class="story-block">
+            <h3>Acompañamiento con presencia</h3>
+            <p>Cada encuentro está pensado como un espacio seguro para bajar la velocidad, hacer preguntas importantes y diseñar pasos concretos. La transformación no se fuerza: se cultiva. Pero sí, hay que regarla. Spoiler: con presencia, no con ansiedad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Planes y servicios</div>
+          <h2 class="section-title">Elegí el proceso que mejor acompaña tu momento.</h2>
+          <p class="lead">Tres formas de empezar: desde una sesión puntual hasta un proceso de acompañamiento profundo. Los nombres, duración y precios se pueden ajustar después según lo que Octa ofrezca realmente.</p>
+        </div>
+
+        <div class="cards">
+          <article class="service-card reveal">
+            <div class="tag">Inicio</div>
+            <h3>Sesión claridad</h3>
+            <p class="muted">Un encuentro individual para ordenar lo que estás atravesando y detectar el próximo paso.</p>
+            <ul class="service-list">
+              <li>1 sesión personalizada</li>
+              <li>Mapa inicial de bloqueos y objetivos</li>
+              <li>Ejercicios simples para integrar</li>
+              <li>Ideal para primer acercamiento</li>
+            </ul>
+            <a href="#contacto" class="btn btn-dark">Consultar</a>
+          </article>
+
+          <article class="service-card featured reveal">
+            <div class="tag">Más elegido</div>
+            <h3>Proceso 1:1</h3>
+            <p class="muted">Acompañamiento semanal para trabajar hábitos, propósito, autoestima, vínculos y dirección personal.</p>
+            <ul class="service-list">
+              <li>Encuentros semanales</li>
+              <li>Seguimiento personalizado</li>
+              <li>Prácticas de presencia y registro emocional</li>
+              <li>Plan de acción entre sesiones</li>
+            </ul>
+            <a href="#contacto" class="btn btn-primary">Quiero empezar</a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="tag">Profundo</div>
+            <h3>Renacer</h3>
+            <p class="muted">Un programa intensivo para quienes sienten que necesitan un cambio de etapa con estructura y sostén.</p>
+            <ul class="service-list">
+              <li>Proceso de 3 meses</li>
+              <li>Objetivos personales claros</li>
+              <li>Herramientas de integración diaria</li>
+              <li>Cierre con plan de continuidad</li>
+            </ul>
+            <a href="#contacto" class="btn btn-dark">Postularme</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="container contact-box reveal">
+        <div>
+          <div class="section-kicker">Contactanos</div>
+          <h2 class="section-title">Demos el primer paso.</h2>
+          <p class="lead">Escribí para consultar por sesiones, planes de coaching, talleres o experiencias grupales. Te respondemos con la información necesaria para elegir el proceso adecuado.</p>
+
+          <div class="contact-info">
+            <div class="info-item">
+              <div class="info-icon">W</div>
+              <div>
+                <strong>WhatsApp</strong>
+                <p class="muted">+54 9 11 0000-0000</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">IG</div>
+              <div>
+                <strong>Instagram</strong>
+                <p class="muted">@octa.coaching</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">✉</div>
+              <div>
+                <strong>Email</strong>
+                <p class="muted">hola@octacoaching.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-grid">
+            <input type="text" name="nombre" placeholder="Tu nombre" required />
+            <input type="email" name="email" placeholder="Tu email" required />
+          </div>
+          <select name="servicio" required>
+            <option value="">¿Qué te interesa?</option>
+            <option>Sesión claridad</option>
+            <option>Proceso 1:1</option>
+            <option>Programa Renacer</option>
+            <option>Talleres / experiencias grupales</option>
+          </select>
+          <textarea name="mensaje" placeholder="Contanos brevemente qué estás buscando" required></textarea>
+          <button class="btn btn-primary" type="submit">Enviar consulta</button>
+          <p id="formMsg" class="muted" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container faq-wrap reveal">
+        <div class="section-kicker">Preguntas frecuentes</div>
+        <h2 class="section-title">Antes de empezar</h2>
+
+        <div class="faq-item active">
+          <button class="faq-question" type="button">
+            <span>¿Necesito experiencia previa en coaching o prácticas de bienestar?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            <p>No. Los procesos están pensados para acompañarte desde tu punto de partida. No necesitás saber meditar, tener claridad absoluta ni venir “iluminado”. Con venir honestamente alcanza bastante, que ya es un montón.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>¿Las sesiones son online o presenciales?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Pueden organizarse en modalidad online o presencial según disponibilidad, ubicación y tipo de proceso. La landing puede adaptarse luego con la información real de Octa.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>¿Qué diferencia hay entre una sesión y un proceso completo?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            <p>La sesión puntual sirve para ordenar una situación específica. El proceso completo permite sostener cambios en el tiempo, trabajar patrones más profundos y construir hábitos con seguimiento.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>¿Esto reemplaza terapia psicológica?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            <p>No. El coaching puede acompañar procesos de claridad, hábitos, propósito y toma de decisiones, pero no reemplaza un tratamiento psicológico o médico cuando corresponde.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>¿Cómo sé qué plan elegir?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Podés escribir por WhatsApp o enviar el formulario. A partir de tu situación, Octa puede orientarte hacia el formato más adecuado: sesión puntual, proceso 1:1 o programa más profundo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="logo">Octa<span>.</span></div>
+      <p>Coaching, presencia y transformación personal.</p>
+      <div class="nav-social" style="display:flex">
+        <a class="social-btn" href="#contacto">W</a>
+        <a class="social-btn" href="#contacto">IG</a>
+        <a class="social-btn" href="#contacto">YT</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const form = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      menuToggle.textContent = navLinks.classList.contains('open') ? '×' : '☰';
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          if (faq !== item) faq.classList.remove('active');
+        });
+        item.classList.toggle('active');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      formMsg.textContent = 'Consulta preparada. Conectá este formulario a WhatsApp, email o backend cuando tengas los datos finales de Octa.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
